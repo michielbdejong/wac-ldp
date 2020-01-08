@@ -146,14 +146,5 @@ The following operations are available:
 Currently supported representations for RDF are Turtle and JSON-LD. The only currently allowed patch type for RDF are `SPARQL-update (any)` and `SPARQL-update (appendOnly)`. The currently allowed filter types for RDF are `SPARQL-SELECT`, `ldp-paging`, and `prefer-minimal-container`.
 In the future, we might add similar modules for e.g. HTML/RDFa or partial updates to binary blobs, and when that happens we will turn this component into an abstract 'content operations' component, of which RDF, HTML/RDFa and Binary are instantiations.
 
-Published under an MIT license by inrupt, Inc.
-
-Contributors:
-* Michiel de Jong
-* Ruben Verborgh
-* Kjetil Kjernsmo
-* Jackson Morgan
-* Pat McBennett
-* Justin Bingham
-* Sebastien Dubois
-* elf Pavlik
+Published as a hobby project, under MIT license, by Michiel de Jong.
+Based on version 0.6 of https://github.com/inrupt/wac-ldp.
