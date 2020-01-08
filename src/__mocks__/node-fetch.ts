@@ -1,5 +1,4 @@
 import fs from 'fs'
-import { Response } from 'node-fetch'
 import { URL } from 'url'
 import Debug from 'debug'
 
@@ -9,7 +8,7 @@ const WEB_FIXTURES = './test/fixtures/web'
 
 // We want to mock `fetch` but not `Response`,
 // so passing that through as-is from the real node-fetch module:
-export interface Response extends Response {}
+export { Response } from 'node-fetch'
 
 export default function fetch (urlStr: string): Promise<Response> {
   debug('fetch', urlStr)
