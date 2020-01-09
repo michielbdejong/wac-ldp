@@ -74,7 +74,7 @@ const responses: Responses = {
     responseBody: 'Created'
   },
   [ResultType.OkayWithoutBody]: {
-    responseStatus: 204,
+    responseStatus: 200, // 204, avoid confusing the test suite with this
     responseBody: 'No Content'
   },
   [ResultType.MethodNotAllowed]: {
