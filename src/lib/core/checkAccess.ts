@@ -68,12 +68,13 @@ function urlHasSuffix (url: URL, suffix: string) {
 }
 
 function removeUrlSuffix (url: URL, suffix: string): URL {
+  debug('removing suffix', url.toString(), suffix)
   const urlStr = url.toString()
   const remainingLength: number = urlStr.length - suffix.length
   if (remainingLength < 0) {
     throw new Error('no suffix match (URL shorter than suffix)')
   }
-  if (urlStr[urlStr.length - 1].substring(remainingLength) !== suffix) {
+  if (urlStr.substring(remainingLength) !== suffix) {
     throw new Error('no suffix match')
   }
   return new URL(urlStr.substring(0, remainingLength))
