@@ -120,6 +120,10 @@ export async function checkAccess (task: AccessCheckTask): Promise<boolean> {
       debug(mode, 'is allowed!')
       return
     }
+    if (mode === ACL.Append && await modeAllowed(ACL.Write, allowedAgentsForModes, task.webId, task.origin, task.rdfLayer)) {
+      debug('Mode is append, and Write is allowed, so Append implied!')
+      return
+    }
     debug(`mode ${mode.toString()} is not allowed, but checking for appendOnly now`)
     // SPECIAL CASE: append-only
     if (mode === ACL.Write && await modeAllowed(ACL.Append, allowedAgentsForModes, task.webId, task.origin, task.rdfLayer)) {
