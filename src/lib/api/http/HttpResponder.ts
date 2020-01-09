@@ -51,7 +51,7 @@ const responses: Responses = {
     constrainedBy: 'could-not-parse'
   },
   [ResultType.AccessDenied]: {
-    responseStatus: 401,
+    responseStatus: 403,
     responseBody: 'Access denied',
     constrainedBy: 'wac'
   },
