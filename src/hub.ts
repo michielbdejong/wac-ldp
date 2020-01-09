@@ -111,7 +111,7 @@ export class Hub {
       client.subscriptions.map(async (subscription) => {
         debug('hasPrefix', url.toString(), subscription.toString(), hasPrefix(url.toString(), subscription.toString()))
         const webId = await client.webIdPromise
-        debug(webId.toString(), url.toString(), hasPrefix(url.toString(), subscription.toString()))
+        // debug(webId.toString(), url.toString(), hasPrefix(url.toString(), subscription.toString()))
         if (!hasPrefix(url.toString(), subscription.toString())) {
           return
         }
