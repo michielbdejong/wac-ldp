@@ -68,13 +68,14 @@ export async function determineWebIdAndOrigin (bearerToken: string | undefined, 
     debug('bearerToken before decoding', bearerToken)
     const payload: any = jwt.decode(bearerToken) // decode only the payload
     debug('bearerToken payload after decoding', payload)
-    let completeIdToken: any
+    let idToken: any
     if (payload.token_type === 'id') {
       debug('WARNING! test suite sends id_token as bearer!')
-      completeIdToken = payload
+      idToken = bearerToken
     } else {
-      completeIdToken = jwt.decode(payload.id_token, { complete: true }) // decode payload + header + signature
+      idToken = payload.id_token
     }
+    const completeIdToken: any = jwt.decode(idToken, { complete: true }) // decode payload + header + signature
     debug('decoded idToken complete', completeIdToken)
 
     const domain: string = urlToDomain(completeIdToken.payload.sub as string)
@@ -85,7 +86,7 @@ export async function determineWebIdAndOrigin (bearerToken: string | undefined, 
     }
     try {
       debug('verifying id token', issuerPubKey, payload.iss)
-      jwt.verify(payload.id_token, issuerPubKey, { audience: payload.iss })
+      jwt.verify(idToken, issuerPubKey, { audience: payload.iss })
     } catch (error) {
       debug('verification failed', error.message)
       return { webId: undefined, origin: originFromHeaders }
