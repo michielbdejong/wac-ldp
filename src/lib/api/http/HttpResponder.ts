@@ -110,6 +110,7 @@ export async function sendHttpResponse (task: WacLdpResponse, options: { updates
   }
 
   const responseHeaders = {
+    'Client-Transfer-Encoding': 'chunked',
     'Link':  links,
     'X-Powered-By': 'inrupt pod-server (alpha)',
     'Vary': 'Accept, Authorization, Origin',

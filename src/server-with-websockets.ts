@@ -33,7 +33,8 @@ export class Server {
   }
   async listen () {
     if (this.owner) {
-      await this.wacLdp.setRootAcl(new URL(`https://localhost:${this.port}`), this.owner)
+      await this.wacLdp.setRootAcl(new URL(`http://localhost:${this.port}/`), this.owner)
+      await this.wacLdp.setPublicAcl(new URL(`http://localhost:${this.port}/public/`), this.owner, 'Read')
     }
     this.server.listen(this.port)
     debug('listening on port', this.port)
@@ -49,7 +50,7 @@ export class Server {
 const port = parseInt((process.env.PORT ? process.env.PORT : ''), 10) || 8080
 
 const aud = process.env.AUD || 'https://localhost:8443'
-const server = new Server(port, aud, undefined)
+const server = new Server(port, aud, new URL(process.env.OWNER || 'https://alice.idp.test.solidproject.org/profile/card#me'))
 server.listen().catch(console.error.bind(console))
 // server.close()
 
