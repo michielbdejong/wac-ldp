@@ -33,8 +33,9 @@ export class Server {
   }
   async listen () {
     if (this.owner) {
-      await this.wacLdp.setRootAcl(new URL(`http://localhost:${this.port}/`), this.owner)
-      await this.wacLdp.setPublicAcl(new URL(`http://localhost:${this.port}/public/`), this.owner, 'Read')
+      // FIXME: don't hard-code "http://server" here; use the `aud: string` arg from the constructor, maybe?
+      await this.wacLdp.setRootAcl(new URL(`http://server:${this.port}/`), this.owner)
+      await this.wacLdp.setPublicAcl(new URL(`http://server:${this.port}/public/`), this.owner, 'Read')
     }
     this.server.listen(this.port)
     debug('listening on port', this.port)
