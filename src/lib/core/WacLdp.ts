@@ -147,6 +147,10 @@ export class WacLdp extends EventEmitter {
     return setAppModes(webId, origin, modes, this.rdfLayer.storage)
   }
   async hasAccess (webId: URL, origin: string, url: URL, mode: URL): Promise<boolean> {
+    if (this.skipWac) {
+      debug('hasAccess skipped due to skipWac option')
+      return true
+    }
     debug('hasAccess calls checkAccess', {
       url,
       webId,
