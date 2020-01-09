@@ -68,8 +68,13 @@ export async function determineWebIdAndOrigin (bearerToken: string | undefined, 
     debug('bearerToken before decoding', bearerToken)
     const payload: any = jwt.decode(bearerToken) // decode only the payload
     debug('bearerToken payload after decoding', payload)
-
-    const completeIdToken: any = jwt.decode(payload.id_token, { complete: true }) // decode payload + header + signature
+    let completeIdToken: any
+    if (payload.token_type === 'id') {
+      debug('WARNING! test suite sends id_token as bearer!')
+      completeIdToken = payload
+    } else {
+      completeIdToken = jwt.decode(payload.id_token, { complete: true }) // decode payload + header + signature
+    }
     debug('decoded idToken complete', completeIdToken)
 
     const domain: string = urlToDomain(completeIdToken.payload.sub as string)
