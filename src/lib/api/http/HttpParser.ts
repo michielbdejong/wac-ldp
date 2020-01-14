@@ -393,6 +393,7 @@ export class WacLdpTask {
     }
     this.cache.wacLdpTaskType = { value: TaskType.blobWrite }
     this.cache.isContainer = { value: false }
+    this.cache.ifNoneMatchStar = { value: true } // fail if already exists
 
     debug('converted', this.cache)
   }
