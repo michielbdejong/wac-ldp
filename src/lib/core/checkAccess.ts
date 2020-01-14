@@ -134,7 +134,7 @@ export async function checkAccess (task: AccessCheckTask): Promise<boolean> {
       return
     }
     debug(`Access denied! ${mode.toString()} access is required for this task, webid is "${task.webId ? task.webId.toString() : undefined}"`)
-    throw new ErrorResult(ResultType.AccessDenied)
+    throw new ErrorResult(task.webId ? ResultType.Forbidden : ResultType.Unauthorized)
   }))
   // webId may be reused to check individual ACLs on individual member resources for Glob
   // appendOnly may be used to restrict PATCH operations

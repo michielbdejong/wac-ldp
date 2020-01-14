@@ -378,6 +378,10 @@ export class WacLdpTask {
     return this.cache.webIdAndOrigin.value.then(obj => obj.webId)
   }
 
+  async authenticated (): Promise<boolean> {
+    return !!await this.webId()
+  }
+
   // this one is maybe a bit weird too, open to suggestions
   // for making this simpler
   convertToBlobWrite (memberName: string) {

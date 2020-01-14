@@ -6,7 +6,8 @@ const debug = Debug('HttpResponder')
 
 export enum ResultType {
   CouldNotParse,
-  AccessDenied,
+  Unauthorized,
+  Forbidden,
   PreconditionFailed,
   NotModified,
   NotFound,
@@ -50,9 +51,14 @@ const responses: Responses = {
     responseBody: 'Method not allowed',
     constrainedBy: 'could-not-parse'
   },
-  [ResultType.AccessDenied]: {
+  [ResultType.Unauthorized]: {
+    responseStatus: 401,
+    responseBody: 'Unauthorized',
+    constrainedBy: 'wac'
+  },
+  [ResultType.Forbidden]: {
     responseStatus: 403,
-    responseBody: 'Access denied',
+    responseBody: 'Forbidden',
     constrainedBy: 'wac'
   },
   [ResultType.PreconditionFailed]: {
@@ -133,7 +139,7 @@ export async function sendHttpResponse (task: WacLdpResponse, options: { updates
   if (task.createdLocation) {
     responseHeaders['Location'] = task.createdLocation.toString()
   }
-  if (task.resultType === ResultType.AccessDenied) {
+  if (task.resultType === ResultType.Forbidden) {
     responseHeaders['WWW-Authenticate'] = `Bearer realm="${options.storageOrigin}", scope="openid webid"`
   }
   if (task.resourceData) {

@@ -170,7 +170,7 @@ export class RdfLayer {
     }
   }
 
-  async applyPatch (resourceData: ResourceData, sparqlQuery: string, fullUrl: URL, appendOnly: boolean) {
+  async applyPatch (resourceData: ResourceData, sparqlQuery: string, fullUrl: URL, appendOnly: boolean, authenticated: boolean = true) {
     const store = rdflib.graph()
     const parse = rdflib.parse as (body: string, store: any, url: string, contentType: string) => void
     parse(resourceData.body, store, fullUrl.toString(), resourceData.contentType)
@@ -181,7 +181,7 @@ export class RdfLayer {
     debug('patchObject', patchObject)
     if (appendOnly && typeof patchObject.delete !== 'undefined') {
       debug('appendOnly and patch contains deletes')
-      throw new ErrorResult(ResultType.AccessDenied)
+      throw new ErrorResult(authenticated ? ResultType.Forbidden : ResultType.Unauthorized)
     }
     await new Promise((resolve, reject) => {
       store.applyPatch(patchObject, store.sym(fullUrl), (err: Error) => {

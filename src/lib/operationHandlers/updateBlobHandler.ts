@@ -20,7 +20,7 @@ export const updateBlobHandler = {
       throw new ErrorResult(ResultType.NotFound)
     }
     debug('operation updateBlob!', { appendOnly })
-    const turtleDoc: string = await rdfLayer.applyPatch(resourceData, await task.requestBody() || '', task.fullUrl(), appendOnly)
+    const turtleDoc: string = await rdfLayer.applyPatch(resourceData, await task.requestBody() || '', task.fullUrl(), appendOnly, await task.authenticated())
     const blob = rdfLayer.getLocalBlob(task.fullUrl())
     await blob.setData(await objectToStream(makeResourceData(resourceData.contentType, turtleDoc)))
     rdfLayer.flushCache(task.fullUrl())

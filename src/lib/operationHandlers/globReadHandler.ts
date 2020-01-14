@@ -46,7 +46,7 @@ export const globReadHandler = {
         rdfSources[member.name] = resourceData
         debug('Found RDF source', member.name)
       } catch (error) {
-        if (error instanceof ErrorResult && error.resultType === ResultType.AccessDenied) {
+        if (error instanceof ErrorResult && (error.resultType === ResultType.Forbidden || error.resultType === ResultType.Unauthorized)) {
           debug('access denied to blob in glob, skipping', blobUrl.toString())
         } else {
           debug('unexpected error for blob in glob, skipping', error.message, blobUrl.toString())
