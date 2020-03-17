@@ -54,7 +54,10 @@
     "docs": "typedoc --out docs --mode modules src",
     "coverage": "jest --coverage --collectCoverageFrom=src/**/*.ts",
     "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "preversion": "npm test",
+    "version": "npm run build",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
