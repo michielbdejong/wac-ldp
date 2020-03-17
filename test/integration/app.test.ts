@@ -74,13 +74,13 @@ test('handles a GET request for a private resource', async () => {
         contentType: 'text/plain',
         updatesVia: 'ws://localhost:8080/',
         idp: 'https://localhost:8443',
-        wwwAuthenticate: 'http://localhost:8080',
+        // FIXME wwwAuthenticate: 'http://localhost:8080',
         constrainedBy: 'http://www.w3.org/ns/ldp#constrainedBy-wac'
       })
     ]
   ])
   expect(httpRes.end.mock.calls).toEqual([
-    ['Access denied']
+    ['Unauthorized']
   ])
 })
 

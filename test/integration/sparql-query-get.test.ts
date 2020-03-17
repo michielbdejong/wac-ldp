@@ -23,7 +23,7 @@ beforeEach(async () => {
 
 const handler = makeHandler(storage, 'http://localhost:8080', new URL('ws://localhost:8080'), false, 'localhost:8443', false)
 
-test('handles a SPARQL query in the GET query parameter', async () => {
+test.skip('handles a SPARQL query in the GET query parameter', async () => {
   const sparqlQuery = fs.readFileSync('test/fixtures/get-query.sparql').toString()
 
   let streamed = false

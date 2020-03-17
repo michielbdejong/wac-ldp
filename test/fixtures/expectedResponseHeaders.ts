@@ -20,6 +20,7 @@ export function expectedResponseHeaders (options: any) {
     'Access-Control-Expose-Headers': 'User, Location, Link, Vary, Last-Modified, ETag, Accept-Patch, Accept-Post, Updates-Via, Allow, WAC-Allow, Content-Length, WWW-Authenticate',
     'Access-Control-Allow-Methods': 'GET, HEAD, POST, PUT, DELETE, PATCH',
     'Allow': 'GET, HEAD, POST, PUT, DELETE, PATCH',
+    'Client-Transfer-Encoding': 'chunked',
     'Content-Type': options.contentType || 'content/type',
     'Link': links.join(', '),
     'Updates-Via': options.updatesVia,
