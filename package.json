@@ -1,6 +1,6 @@
 {
   "name": "wac-ldp",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "description": "Personal hobby project. Based on version 0.6 of https://github.com/inrupt/wac-ldp.",
   "main": "dist/exports.js",
   "dependencies": {
