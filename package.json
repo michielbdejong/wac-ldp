@@ -1,7 +1,7 @@
 {
   "name": "wac-ldp",
   "version": "0.10.0",
-  "description": "A central component for Solid servers, handles Web Access Control and Linked Data Platform concerns.",
+  "description": "Personal hobby project. Based on version 0.6 of https://github.com/inrupt/wac-ldp.",
   "main": "dist/exports.js",
   "dependencies": {
     "@comunica/actor-init-sparql": "^1.10.0",
@@ -60,21 +60,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/inrupt/wac-ldp.git"
+    "url": "git+https://github.com/michielbdejong/wac-ldp.git"
   },
-  "author": "inrupt, Inc.",
-  "contributors": [
-    "Michiel de Jong (https://github.com/michielbdejong)",
-    "Ruben Verborgh (https://github.com/rubenverborgh)",
-    "Kjetil Kjernsmo (https://github.com/kjetilk)",
-    "Jackson Morgan (https://github.com/jaxoncreed)",
-    "Pat McBennett (https://github.com/pmcb55)",
-    "Justin Bingham (https://github.com/justinwb)",
-    "Sebastien Dubois (https://github.com/dsebastien)"
-  ],
+  "author": "Michiel B. de Jong",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/inrupt/wac-ldp/issues"
+    "url": "https://github.com/michielbdejong/wac-ldp/issues"
   },
-  "homepage": "https://github.com/inrupt/wac-ldp#readme"
+  "homepage": "https://github.com/michielbdejong/wac-ldp#readme"
 }
