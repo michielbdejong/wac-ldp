@@ -19,8 +19,8 @@ export async function setRootAcl (storage: BlobTree, owner: URL, storageRoot: UR
     `<#owner>`,
     `  a acl:Authorization;`,
     `  acl:agent <${owner.toString()}>;`,
-    `  acl:accessTo </>;`,
-    `  acl:default </>;`,
+    `  acl:accessTo <./>;`,
+    `  acl:default <./>;`,
     `  acl:mode`,
     `    acl:Read, acl:Write, acl:Control.`
   ].join('\n'))
