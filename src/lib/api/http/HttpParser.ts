@@ -238,6 +238,10 @@ export class WacLdpTask {
     return this.cache.webIdAndOrigin.value.then(obj => obj.origin)
   }
 
+  async originFromHeaders (): Promise<string | undefined> {
+    return determineOriginFromHeaders(this.httpReq.headers)
+  }
+
   childNameToCreate (): string {
     if (!this.cache.childNameToCreate) {
       this.cache.childNameToCreate = {

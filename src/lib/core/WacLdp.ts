@@ -83,7 +83,9 @@ export class WacLdp extends EventEmitter {
             url: task.fullUrl(),
             isContainer: task.isContainer(),
             webId: await task.webId(),
-            origin: await task.origin(),
+            // FIXME: https://github.com/michielbdejong/wac-ldp/issues/1
+            // origin: await task.origin(),
+            origin: await task.originFromHeaders(),
             requiredAccessModes: determineRequiredAccessModes(task.wacLdpTaskType()),
             rdfLayer: this.rdfLayer
           } as AccessCheckTask) // may throw if access is denied
