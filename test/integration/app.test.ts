@@ -22,7 +22,7 @@ const handler = makeHandler(storage, 'http://localhost:8080', new URL('ws://loca
 test('handles a GET request for a public resource', async () => {
   let streamed = false
   let endCallback: () => void
-  let httpReq: any = toChunkStream('')
+  let httpReq: any = { body: toChunkStream('') }
   httpReq.headers = {
     origin: 'https://pheyvaer.github.io'
   } as http.IncomingHttpHeaders
@@ -54,7 +54,7 @@ test('handles a GET request for a public resource', async () => {
 test('handles a GET request for a private resource', async () => {
   let streamed = false
   let endCallback: () => void
-  let httpReq: any = toChunkStream('')
+  let httpReq: any = { body: toChunkStream('') }
   httpReq.headers = {
     origin: 'https://pheyvaer.github.io'
   } as http.IncomingHttpHeaders
@@ -87,7 +87,7 @@ test('handles a GET request for a private resource', async () => {
 test('sets bearerToken in Updates-Via', async () => {
   let streamed = false
   let endCallback: () => void
-  let httpReq: any = toChunkStream('')
+  let httpReq: any = { body: toChunkStream('') }
   httpReq.headers = {
     origin: 'https://pheyvaer.github.io',
     authorization: 'Bearer some-bearer-token'

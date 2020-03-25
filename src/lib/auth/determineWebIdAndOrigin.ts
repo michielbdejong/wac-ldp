@@ -99,7 +99,8 @@ export async function determineWebIdAndOrigin (bearerToken: string | undefined, 
     if (payload.token_type === 'id') {
       debug('WARNING! test suite sends id_token as bearer!')
     } else {
-      originToReturn = completeIdToken.payload.iss
+      // originToReturn = completeIdToken.payload.iss
+      originToReturn = completeIdToken.payload.aud
     }
 
     debug('returning', completeIdToken.payload.sub, originToReturn)

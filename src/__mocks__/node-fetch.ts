@@ -35,16 +35,18 @@ export default function fetch (urlStr: string): Promise<Response> {
               }
             }
           },
-          on (eventType: string, eventHandler: (buf: Buffer) => {}) {
-            if (eventType === 'end') {
-              endHandler = eventHandler
-            }
-            if (eventType === 'data') {
-              eventHandler(data)
-              streamed = true
-            }
-            if (streamed && endHandler) {
-              endHandler()
+          body: {
+            on (eventType: string, eventHandler: (buf: Buffer) => {}) {
+              if (eventType === 'end') {
+                endHandler = eventHandler
+              }
+              if (eventType === 'data') {
+                eventHandler(data)
+                streamed = true
+              }
+              if (streamed && endHandler) {
+                endHandler()
+              }
             }
           }
         } as unknown as Response)
