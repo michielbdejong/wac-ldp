@@ -3,6 +3,7 @@ import Debug from 'debug'
 import { ACL, RDF } from '../rdf/rdf-constants'
 import { RdfLayer } from '../rdf/RdfLayer'
 import { BlobTree } from '../storage/BlobTree'
+import { Term } from 'n3'
 
 const debug = Debug('appIsTrustedForMode')
 
@@ -19,6 +20,17 @@ export interface OriginCheckTask {
 // FIXME: It's weird that setAppModes is in the RDF module, but getAppModes is in the auth module.
 
 export async function getAppModes (webId: URL, origin: string, rdfLayer: RdfLayer): Promise<Array<URL>> {
+  function toUrlStr (term: Term) {
+    return new URL(term.value, webId).toString()
+  }
+  function toUrlStrings (quad: any) {
+    return {
+      subject: toUrlStr(quad.subject),
+      predicate: toUrlStr(quad.predicate),
+      object: toUrlStr(quad.object)
+    }
+  }
+
   // TODO: move this cache into a decorator pattern, see #81
   debug('checkOwnerProfile', webId.toString(), origin)
   if (!ownerProfilesCache[webId.toString()]) {
@@ -51,30 +63,30 @@ export async function getAppModes (webId: URL, origin: string, rdfLayer: RdfLaye
     }
   }
   debug('looking for quads:', webId.toString(), origin)
-  quads.forEach((quad: any): void => {
+  quads.map(toUrlStrings).forEach((quad: any): void => {
     debug('considering quad', quad)
-    switch (quad.predicate.value) {
+    switch (quad.predicate) {
       case ACL.mode.toString():
-        debug('mode predicate!', quad.predicate.value)
-        ensure(quad.subject.value)
-        appNodes[quad.subject.value].modes.push(new URL(quad.object.value))
+        debug('mode predicate!', quad.predicate)
+        ensure(quad.subject)
+        appNodes[quad.subject].modes.push(new URL(quad.object))
         break
       case ACL.origin.toString():
-        debug('origin predicate!', quad.predicate.value, origin)
-        if (origin === quad.object.value) {
-          ensure(quad.subject.value)
-          appNodes[quad.subject.value].originMatches = true
+        debug('origin predicate!', quad.predicate, origin)
+        if (new URL(origin, webId).toString() === quad.object) {
+          ensure(quad.subject)
+          appNodes[quad.subject].originMatches = true
         }
         break
       case ACL.trustedApp.toString():
-        debug('trustedApp predicate!', quad.predicate.value, webId.toString())
-        if (webId.toString() === quad.subject.value) {
-          ensure(quad.object.value)
-          appNodes[quad.object.value].webIdMatches = true
+        debug('trustedApp predicate!', quad.predicate, webId.toString())
+        if (webId.toString() === quad.subject) {
+          ensure(quad.object)
+          appNodes[quad.object].webIdMatches = true
         }
         break
       default:
-        debug('unknown predicate!', quad.predicate.value)
+        debug('unknown predicate!', quad.predicate)
     }
   })
   debug('appNodes', appNodes)

@@ -93,7 +93,7 @@ export class RdfLayer {
       debug('calling node-fetch', url.toString())
       const response: any = await fetch(url.toString())
       const rdfType = determineRdfType(response.headers.get('content-type'))
-      const quadStream = readRdf(rdfType, response as unknown as ReadableStream)
+      const quadStream = readRdf(rdfType, response.body)
       const dataset = await rdf.dataset().import(quadStream)
       debug('got dataset')
       return dataset
