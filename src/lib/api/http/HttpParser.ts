@@ -136,9 +136,9 @@ function determineChildNameToCreate (headers: http.IncomingHttpHeaders): string 
   debug('determining child name to create', headers)
   if (headers) {
     if (Array.isArray(headers.slug)) {
-      return headers.slug[0]
+      return `${headers.slug[0]}-${uuid()}`
     } else if (headers.slug) {
-      return headers.slug
+      return `${headers.slug}-${uuid()}`
     }
   }
   return uuid()
