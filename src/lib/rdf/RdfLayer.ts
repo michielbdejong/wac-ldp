@@ -171,9 +171,10 @@ export class RdfLayer {
   }
 
   async applyPatch (resourceData: ResourceData, sparqlQuery: string, fullUrl: URL, appendOnly: boolean, authenticated: boolean = true) {
+    debug('applyPatch', resourceData, sparqlQuery, fullUrl, appendOnly, authenticated)
     const store = rdflib.graph()
-    const parse = rdflib.parse as (body: string, store: any, url: string, contentType: string) => void
-    parse(resourceData.body, store, fullUrl.toString(), resourceData.contentType)
+    // const parse = rdflib.parse as (body: string, store: any, url: string, contentType: string) => void
+    // parse(resourceData.body, store, fullUrl.toString(), resourceData.contentType)
     debug('before patch', store.toNT())
 
     const sparqlUpdateParser = rdflib.sparqlUpdateParser as unknown as (patch: string, store: any, url: string) => any
@@ -184,7 +185,7 @@ export class RdfLayer {
       throw new ErrorResult(authenticated ? ResultType.Forbidden : ResultType.Unauthorized)
     }
     await new Promise((resolve, reject) => {
-      store.applyPatch(patchObject, store.sym(fullUrl), (err: Error) => {
+      store.applyPatch(patchObject, store.sym(fullUrl.toString()), (err: Error) => {
         if (err) {
           reject(err)
         } else {
@@ -193,7 +194,7 @@ export class RdfLayer {
       })
     })
     debug('after patch', store.toNT())
-    return rdflib.serialize(undefined, store, fullUrl, 'text/turtle')
+    return rdflib.serialize(undefined, store, fullUrl.toString(), 'text/turtle')
   }
   flushCache (url: URL) {
     // no caching here
