@@ -24,7 +24,7 @@
     "rdf-formats-common": "^1.4.0",
     "rdf-parser-jsonld": "^1.1.0",
     "rdf-parser-n3": "^1.1.1",
-    "rdflib": "^1.1.0",
+    "rdflib": "^0.21.1",
     "sparqljs": "^2.2.3",
     "uuid": "^3.4.0",
     "whatwg-mimetype": "^2.3.0",
