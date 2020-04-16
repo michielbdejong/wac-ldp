@@ -31,8 +31,8 @@ export class CachingRdfLayer extends RdfLayer {
   async applyPatch (resourceData: ResourceData, sparqlQuery: string, fullUrl: URL, appendOnly: boolean, authenticated: boolean = true) {
     if (!this.stores[fullUrl.toString()]) {
       this.stores[fullUrl.toString()] = rdflib.graph()
-      // const parse = rdflib.parse as (body: string, store: any, url: string, contentType: string) => void
-      // parse(resourceData.body, this.stores[fullUrl.toString()], fullUrl.toString(), resourceData.contentType)
+      const parse = rdflib.parse as (body: string, store: any, url: string, contentType: string) => void
+      parse(resourceData.body, this.stores[fullUrl.toString()], fullUrl.toString(), resourceData.contentType)
     }
     debug('before patch', this.stores[fullUrl.toString()].toNT())
 
