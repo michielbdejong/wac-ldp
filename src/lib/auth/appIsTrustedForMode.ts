@@ -104,7 +104,7 @@ async function checkOwnerProfile (webId: URL, origin: string, mode: URL, rdfLaye
     if (appModes[i].toString() === mode.toString()) {
       return true
     }
-    if (appModes[i].toString() === ACL.Append.toString() && mode.toString() === ACL.Write.toString()) {
+    if (appModes[i].toString() === ACL.Write.toString() && mode.toString() === ACL.Append.toString()) {
       return true
     }
   }
