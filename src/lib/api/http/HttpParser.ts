@@ -386,6 +386,16 @@ export class WacLdpTask {
     return !!await this.webId()
   }
 
+  appliesServerSideChanges () {
+    return ([
+      TaskType.containerMemberAdd,
+      TaskType.containerDelete,
+      TaskType.blobWrite,
+      TaskType.blobUpdate,
+      TaskType.blobDelete
+    ].indexOf(this.wacLdpTaskType()) !== -1)
+  }
+
   // this one is maybe a bit weird too, open to suggestions
   // for making this simpler
   convertToBlobWrite (memberName: string) {
