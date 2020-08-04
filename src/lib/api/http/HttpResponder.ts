@@ -94,7 +94,7 @@ const responses: Responses = {
   }
 } as unknown as Responses
 
-export async function sendHttpResponse (task: WacLdpResponse, options: { updatesVia: URL, storageOrigin: string | undefined, idpHost: string, originToAllow: string }, httpRes: http.ServerResponse) {
+export async function sendHttpResponse (task: WacLdpResponse, options: { updatesVia: URL, storageOrigin: string | undefined, idpHost: string, originToAllow: string, aclPath: string | undefined }, httpRes: http.ServerResponse) {
   debug('sendHttpResponse!', task)
 
   debug(responses[task.resultType])
@@ -107,7 +107,10 @@ export async function sendHttpResponse (task: WacLdpResponse, options: { updates
   if (task.isContainer) {
     types.push(`<${LDP.BasicContainer}>; rel="type"`)
   }
-  let links = `<.acl>; rel="acl", <.meta>; rel="describedBy", ${types.join(', ')}, <https://${options.idpHost}>; rel="http://openid.net/specs/connect/1.0/issuer"`
+  let links = `<.meta>; rel="describedBy", ${types.join(', ')}, <https://${options.idpHost}>; rel="http://openid.net/specs/connect/1.0/issuer"`
+  if (options.aclPath) {
+    links += `, <${options.aclPath}>; rel="acl"`
+  }
   if (options.storageOrigin) {
     links += `, <${options.storageOrigin}/.well-known/solid>; rel="service"`
   }

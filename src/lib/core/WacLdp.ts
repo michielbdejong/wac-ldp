@@ -24,6 +24,11 @@ export const BEARER_PARAM_NAME = 'bearer_token'
 
 const debug = Debug('app')
 
+function partAfterLastSlash (str: string) {
+  const parts = str.split('/')
+  return parts[parts.length - 1]
+}
+
 function addBearerToken (baseUrl: URL, bearerToken: string | undefined): URL {
   const ret = new URL(baseUrl.toString())
   if (bearerToken) {
@@ -107,6 +112,7 @@ export class WacLdp extends EventEmitter {
     let storageOrigin: string | undefined
     let requestOrigin: string | undefined
     let bearerToken: string | undefined
+    let aclPath: string | undefined
     try {
       const wacLdpTask: WacLdpTask = new WacLdpTask(this.aud, httpReq, this.usesHttps)
       storageOrigin = wacLdpTask.storageOrigin()
@@ -120,6 +126,7 @@ export class WacLdp extends EventEmitter {
           this.emit('change', { url })
         })
       }
+      aclPath = (response.isContainer ? '.acl' : partAfterLastSlash(wacLdpTask.fullUrl().toString()) + '.acl')
     } catch (error) {
       debug('errored', error)
       if (error.resultType) {
@@ -136,7 +143,8 @@ export class WacLdp extends EventEmitter {
         updatesVia: addBearerToken(this.updatesViaUrl, bearerToken),
         storageOrigin,
         idpHost: this.idpHost,
-        originToAllow: requestOrigin || '*'
+        originToAllow: requestOrigin || '*',
+        aclPath
       }, httpRes)
     } catch (error) {
       debug('errored while responding', error)
