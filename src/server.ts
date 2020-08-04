@@ -1,19 +1,3 @@
-// START VSCode debugging settings, see https://github.com/visionmedia/debug/issues/641#issuecomment-490706752
-declare global {
-	namespace NodeJS {
-    interface Process {
-      browser: boolean
-    }
-    interface Global {
-      window: object
-    }
-  }
-}
-process.browser = true
-global.window = { process: { type: 'renderer' } }
-process.env.DEBUG = '*'
-// END VSCode debugging settings
-
 import * as http from 'http'
 import Debug from 'debug'
 import { BlobTreeInMem } from './lib/storage/BlobTreeInMem'

@@ -1,6 +1,6 @@
 import * as http from 'http'
 import { URL } from 'url'
-import uuid from 'uuid/v4'
+import { v4 as uuid } from 'uuid'
 import Debug from 'debug'
 import MIMEType from 'whatwg-mimetype'
 import { determineWebIdAndOrigin } from '../../auth/determineWebIdAndOrigin'
