@@ -1,12 +1,13 @@
 export function expectedResponseHeaders (options: any) {
   const links = [
     `<.meta>; rel="describedBy"`,
-    `<http://www.w3.org/ns/ldp#Resource>; rel="type", <.acl>; rel="acl"`
+    `<http://www.w3.org/ns/ldp#Resource>; rel="type"`
   ]
   if (options.isContainer) {
     links.push('<http://www.w3.org/ns/ldp#BasicContainer>; rel="type"')
   }
   links.push(`<${options.idp}>; rel="http://openid.net/specs/connect/1.0/issuer"`)
+  links.push(`<${options.aclPath || '.acl'}>; rel="acl"`)
   links.push(`<${(options.serviceOrigin || 'http://localhost:8080')}/.well-known/solid>; rel="service"`)
   if (options.constrainedBy) {
     links.push(`<${options.constrainedBy}>; rel="http://www.w3.org/ns/ldp#constrainedBy"`)

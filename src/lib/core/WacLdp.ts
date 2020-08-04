@@ -118,6 +118,7 @@ export class WacLdp extends EventEmitter {
       storageOrigin = wacLdpTask.storageOrigin()
       requestOrigin = await wacLdpTask.origin()
       bearerToken = wacLdpTask.bearerToken()
+      aclPath = (wacLdpTask.isContainer() ? '.acl' : partAfterLastSlash(wacLdpTask.fullUrl().toString()) + '.acl')
       response = await this.handleOperation(wacLdpTask)
       debug('resourcesChanged', response.resourceData)
       if (response.resourcesChanged) {
@@ -126,7 +127,6 @@ export class WacLdp extends EventEmitter {
           this.emit('change', { url })
         })
       }
-      aclPath = (response.isContainer ? '.acl' : partAfterLastSlash(wacLdpTask.fullUrl().toString()) + '.acl')
     } catch (error) {
       debug('errored', error)
       if (error.resultType) {
