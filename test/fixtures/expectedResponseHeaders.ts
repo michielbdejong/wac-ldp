@@ -1,7 +1,7 @@
 export function expectedResponseHeaders (options: any) {
   const links = [
-    `<.acl>; rel="acl", <.meta>; rel="describedBy"`,
-    `<http://www.w3.org/ns/ldp#Resource>; rel="type"`
+    `<.meta>; rel="describedBy"`,
+    `<http://www.w3.org/ns/ldp#Resource>; rel="type", <.acl>; rel="acl"`
   ]
   if (options.isContainer) {
     links.push('<http://www.w3.org/ns/ldp#BasicContainer>; rel="type"')

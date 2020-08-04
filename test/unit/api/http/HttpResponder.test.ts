@@ -14,7 +14,7 @@ test('should produce a http response', async () => {
     writeHead: jest.fn(() => { }), // tslint:disable-line: no-empty
     end: jest.fn(() => { }) // tslint:disable-line: no-empty
   }
-  await sendHttpResponse(responseTask, { updatesVia: new URL('wss://localhost:8080/'), storageOrigin: 'http://localhost:8080', idpHost: 'localhost:8080', originToAllow: '*' }, res as unknown as http.ServerResponse)
+  await sendHttpResponse(responseTask, { updatesVia: new URL('wss://localhost:8080/'), storageOrigin: 'http://localhost:8080', aclPath: '.acl', idpHost: 'localhost:8080', originToAllow: '*' }, res as unknown as http.ServerResponse)
   expect(res.writeHead.mock.calls).toEqual([
     [
       200,
